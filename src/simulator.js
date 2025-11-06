@@ -4,7 +4,6 @@ import { Table } from './objects/table.js';
 import { Paddle } from './objects/paddle.js';
 import { Ball } from './objects/ball.js';
 import { GUI } from 'lil-gui';
-import * as THREE from 'three';
 
 export class Simulator {
     static instance = null;
@@ -18,12 +17,11 @@ export class Simulator {
         this.camera = this.sceneManager.camera;
         this.renderer = this.sceneManager.renderer;
 
+        this.input = new InputHandler();
 
         this.table = new Table();
-        this.paddle = new Paddle(this.renderer);
+        this.paddle = new Paddle();
         this.ball = new Ball();
-
-        this.input = new InputHandler();
 
         this.input.onLaunch = () => {
             if (this.ball.state === 'waiting') {

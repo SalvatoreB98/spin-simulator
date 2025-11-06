@@ -1,5 +1,12 @@
+import { Simulator } from './simulator.js';
+
 export class InputHandler {
   constructor() {
+    this.sim = new Simulator();
+    if (this.sim.input) {
+      return this.sim.input;
+    }
+
     this.keys = {};
     this.mouse = { x: 0, y: 0 };
 
@@ -26,5 +33,7 @@ export class InputHandler {
       this.mouse.x = (e.clientX / innerWidth) * 2 - 1;
       this.mouse.y = -(e.clientY / innerHeight) * 2 + 1;
     });
+
+    this.sim.input = this;
   }
 }

@@ -1,7 +1,11 @@
 import * as THREE from 'three';
+import { Simulator } from '../simulator.js';
 
 export class Paddle {
-    constructor(renderer) {
+    constructor() {
+        this.sim = new Simulator();
+        this.renderer = this.sim.renderer;
+
         this.group = new THREE.Group();
 
         // === Geometria ===
@@ -34,7 +38,7 @@ export class Paddle {
         this.keys = {};
 
         // === Eventi mouse per rotazione X/Y ===
-        const dom = renderer.domElement;
+        const dom = this.renderer.domElement;
 
         dom.addEventListener('mousedown', e => {
             this.isDragging = true;
@@ -61,6 +65,10 @@ export class Paddle {
             // Limita rotazioni estreme sull'asse X (non ribaltarti)
             this.group.rotation.x = THREE.MathUtils.clamp(this.group.rotation.x, -Math.PI / 2, Math.PI / 2);
         });
+
+        if (this.sim.input) {
+            this.attachInput(this.sim.input);
+        }
     }
 
     attachInput(inputHandler) {

@@ -1,7 +1,11 @@
 import * as THREE from 'three';
+import { Simulator } from '../simulator.js';
 
 export class Ball {
   constructor(color = 0xff3333) {
+    this.sim = new Simulator();
+    this.scene = this.sim.scene;
+
     this.mesh = new THREE.Group();
 
     const sphere = new THREE.Mesh(

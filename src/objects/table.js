@@ -1,7 +1,11 @@
 import * as THREE from 'three';
+import { Simulator } from '../simulator.js';
 
 export class Table {
     constructor() {
+        this.sim = new Simulator();
+        this.scene = this.sim.scene;
+
         this.group = new THREE.Group();
 
         // piano
