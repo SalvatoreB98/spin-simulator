@@ -1,7 +1,13 @@
 import * as THREE from 'three';
+import { Simulator } from './simulator.js';
 
 export class SceneManager {
     constructor(containerId = 'container') {
+        this.sim = new Simulator();
+        if (this.sim.sceneManager) {
+            return this.sim.sceneManager;
+        }
+
         this.scene = new THREE.Scene();
         this.scene.background = new THREE.Color(0x001a00);
 
@@ -15,6 +21,11 @@ export class SceneManager {
 
         this.addLights();
         window.addEventListener('resize', () => this.onResize());
+
+        this.sim.sceneManager = this;
+        this.sim.scene = this.scene;
+        this.sim.camera = this.camera;
+        this.sim.renderer = this.renderer;
     }
 
     addLights() {
